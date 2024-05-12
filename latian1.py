@@ -66,9 +66,21 @@ def evaluate_models(data_path):
 
     return results
 
-# Path to the dataset
-data_path = "dataset/university_data.csv"
 
+# Evaluate models
+data_path = "dataset/university_data.csv"
+model_results = evaluate_models(data_path)
+
+
+# Print results
+for model_name, metrics in model_results.items():
+    print(f"\n{model_name}:")
+    for metric_name, value in metrics.items():
+        if metric_name == "Confusion Matrix":
+            print(f"{metric_name}:\n{value}")
+        else:
+            print(f"{metric_name}: {value:.4f}")
+            
 def compare_best_model(model_results):
     best_model = None
     best_accuracy = 0
@@ -80,18 +92,6 @@ def compare_best_model(model_results):
             best_model = model_name
     
     print(f"\nThe best model based on accuracy is: {best_model} with accuracy {best_accuracy:.4f}")
-
-# Evaluate models
-model_results = evaluate_models(data_path)
-
-# Print results
-for model_name, metrics in model_results.items():
-    print(f"\n{model_name}:")
-    for metric_name, value in metrics.items():
-        if metric_name == "Confusion Matrix":
-            print(f"{metric_name}:\n{value}")
-        else:
-            print(f"{metric_name}: {value:.4f}")
 
 # Compare best model
 compare_best_model(model_results)
